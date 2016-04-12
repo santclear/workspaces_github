@@ -1,0 +1,23 @@
+cordova create alomundo br.edu.devmedia.alomundo AloMundo
+
+entrar no diretorio criado - alomundo
+cordova platforms add android
+cordova plugin add cordova-plugin-device
+cordova plugin add cordova-plugin-console
+cordova emulate android (exectua o emulador baixado pelo sdk android)
+
+--
+executar o projeto no genymotion:
+executar o emulador do genymotion
+na prompt de comando digitar cordova run android
+--
+
+localização do binário
+[PROJECT_HOME]\platforms\android\build\outputs\apk
+exemplo
+C:\Users\santc\Google Drive\workspaces\wsps_devmedia\curso_de_phonegap\workspace\alomundo\platforms\android\build\outputs\apk
+
+phonegap create alomundo_phonegap br.edu.devmedia.alomundo AloMundoPhoneGap
+phonegap platform add android
+
+ionic start myApp sidemenu
