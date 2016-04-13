@@ -44,7 +44,34 @@
  
             <!-- Scrollable page content -->
             <div class="page-content">
-               <div class="content-block">
+			<div class="content-block-title">Select Message</div>
+				<div class="list-block media-list">
+				  <ul>
+					<li style='display: none'>
+					  <label class="label-checkbox item-content">
+						<input type="checkbox" name="my-checkbox">
+						<div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+						<div class="item-inner">
+						  <div class="item-title-row">
+							<div class="item-title">Facebook</div>
+							<div class="item-after">
+								<a href='#' class="button button-fill button-raised" onclick='ola()' style="padding-top:3px">
+									<img src='img/eye.png' />
+								</a>
+								<div class="item-after">
+									<a href='#' class="button button-fill button-raised" onclick='ola()' style="padding-top:5px">
+										<img src='img/remove.png' />
+									</a>
+								</div>
+							</div>
+						  </div>
+						</div>
+					  </label>
+					</li>
+					...
+				  </ul>
+				</div>
+				<div class="content-block">
 					<div class="list-block">
 						<div class="item-content">
 						<div class="item-inner">
@@ -54,7 +81,7 @@
 						</div>
 						</div>
 					</div>
-					<a href='#' class="button button-fill button-raised" onclick='ola()'>Clique</a>
+					<a href='#' class="button button-fill button-raised" onclick='criarNovaTarefa()'>Adicionar Tarefa</a>
 				</div>
             </div>
           </div>
@@ -62,13 +89,30 @@
       </div>
     </div>
     <!-- Path to Framework7 Library JS-->
+	<script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="framework7/js/framework7.min.js"></script>
+	jquery-migrate-1.2.1.min.js
     <!-- Path to your app js-->
     <script type="text/javascript" src="framework7/js/my-app.js"></script>
 	<script type="text/javascript">
 		function ola() {
 			alert(document.getElementById('teste').value);
 		}
+		
+		function criarNovaTarefa() {
+			var tarefa = {};
+			
+			var descricao = prompt('Digite a tarefa', '');
+			if(descricao != null) {
+				if(descricao == '') {
+					alert('A tarefa não pode estar vazia!');
+				} else {
+					tarefa = {check: false, texto: descricao};
+				}
+			}
+		}
+		
+		function addItemLista(tarefa, )
 	</script>
   </body>
 </html>
