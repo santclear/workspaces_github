@@ -15,7 +15,12 @@
     <link rel="stylesheet" href="framework7/css/framework7.material.colors.min.css">
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="framework7/css/my-app.css">
-  </head>
+	<style type='text/css'>
+	    .item-text {
+			max-width: 150px;
+			}
+	</style>
+	</head>
   <body class='theme-green'>
     <!-- Views -->
     <div class="views">
@@ -29,7 +34,7 @@
             <!-- Top Navbar. In Material theme it should be inside of the page-->
             <div class="navbar">
               <div class="navbar-inner">
-                <div class="center">DevMedia - Terefas</div>
+                <div class="center">DevMedia App - Tarefas</div>
               </div>
             </div>
  
@@ -44,43 +49,53 @@
  
             <!-- Scrollable page content -->
             <div class="page-content">
-			<div class="content-block-title">Lista de Terefas</div>
-				<div class="list-block media-list" id="item-tarefa">
+				<div class="content-block-title">Lista de Tarefas</div>
+				<div class="list-block media-list" id='item-tarefa'>
 				  <ul>
-					<li style='display: block' id="primeiro">
+					<li style='display:block' id='primeiro'>
 					  <label class="label-checkbox item-content">
-						<input type="checkbox" name="my-checkbox" class="check-tarefa" id="tarefa0">
+						<input type="checkbox" name="my-checkbox" class='check-tarefa' id='tarefa0'>
 						<div class="item-media"><i class="icon icon-form-checkbox"></i></div>
 						<div class="item-inner">
 						  <div class="item-title-row">
 							<div class="item-title">Facebook</div>
 							<div class="item-after">
-								<a href='#' class="button button-fill button-raised btn-ver" style="padding-top:3px">
-									<img src='img/eye.png' />
+								<a href='#' class="button button-fill button-raised btn-ver">
+									<img src='img/eye.png'/>
 								</a>
 								<div class="item-after">
-									<a href='#' class="button button-fill button-raised btn-remover" style="padding-top:5px">
-										<img src='img/remove.png' />
+									<a href='#' class="button button-fill button-raised btn-remover" style='padding-top:5px'>
+										<img src='img/remove.png'/>
 									</a>
 								</div>
 							</div>
 						  </div>
+						  <div class="item-text"></div>
 						</div>
 					  </label>
 					</li>
 				  </ul>
 				</div>
-				<div class="content-block">
+			
+               <div class="content-block">
 					<div class="list-block">
 						<div class="item-content">
 						<div class="item-inner">
 						  <div class="item-input">
-							<input type='text' id='new-tarefa' placeholder='Nova terefa...'/>
+							<input type='text' id='new-tarefa' placeholder='Nova tarefa...'/>
 						  </div>
 						</div>
 						</div>
+						<div class="item-content">
+							<div class="item-inner">
+								<div class="item-input">
+								  <textarea id='descricao' placeholder='Descrição...'></textarea>
+								</div>
+							</div>
+						</div>
 					</div>
-					<a href='#' class="button button-fill button-raised" onclick='criarNovaTarefa()'>Adicionar Tarefa</a>
+					
+					<a href='#' class="button button-fill button-raised" onclick='criarNovaTarefa()'>Add Tarefa</a>
 				</div>
             </div>
           </div>
@@ -88,37 +103,29 @@
       </div>
     </div>
     <!-- Path to Framework7 Library JS-->
-	<script type="text/javascript" src="cordova.js"></script>
-	<script type="text/javascript" src="js/jquery-2.2.3.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/jquery-2.2.3.js"></script>
     <script type="text/javascript" src="framework7/js/framework7.min.js"></script>
     <!-- Path to your app js-->
     <script type="text/javascript" src="framework7/js/my-app.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			
+		$(document).ready(function () {
+			setClickVer();
 		});
 	
-		function showAlert() {
-			navigator.notification.confirm(
-				'You are the winner!',  // message
-				null,         			// callback
-				'Game Over',            // title
-				['Restart','Exit']      // buttonName
-			);
-		}
-		
 		function criarNovaTarefa() {
 			var tarefa = {};
 			
-			var descricao = $('#new-tarefa').val();
-			if(descricao != null) {
-				if(descricao == '') {
-					myApp.alert('A tarefa não pode estar vazia!', 'Alerta');
+			var texto = $('#new-tarefa').val();
+			var descricao = $('#descricao').val();
+			if (texto != null) {
+				if (texto.trim() == '') {
+					myApp.alert('A tarefa não pode estar vazia!', 'Alerta', limparCampos);
 				} else {
-					tarefa = {check: false, texto: descricao};
+					tarefa = {check: false, texto: texto, descricao: descricao};
 					addItemLista(tarefa);
-					$('#new-tarefa').val('');
 				}
+				limparCampos();
 			}
 		}
 		
@@ -126,23 +133,29 @@
 		function addItemLista(tarefa) {
 			idItem += 1;
 			var clone = $('#item-tarefa li#primeiro').clone().removeAttr('id').appendTo('#item-tarefa ul');
-			clone.find('.check-tarefa').attr('id', 'tarefa'+ idItem).prop('checked', tarefa.check);
+			clone.find('.check-tarefa').attr('id', 'tarefa' + idItem).prop('checked', tarefa.check);
 			clone.find('.item-title').text(tarefa.texto);
+			clone.find('.item-text').text(tarefa.descricao);
 			setClickVer();
 		}
 		
 		function setClickVer() {
 			// itera por todos os li a partir do #item-tarefa
-			$('#item-tarefa li').each(function() {
-				// busca o id da tarefa atual
+			$('#item-tarefa li').each(function () {
 				var id = $(this).find('.check-tarefa').attr('id');
 				// procura o btn-ver, desfaz o clique, depois clica novamente
-				$(this).find('.btn-ver').unbind('click').click(function(){
+				$(this).find('.btn-ver').unbind('click').click(function () {
 					// a partir do id procurado, busca todo os irmãos para o obter o item-inner, para depois pegar o texto do item
-					var texto = $('#'+ id).siblings('.item-inner').find('.item-title').text();
-					myApp.alert(texto, 'Item da Lista');
+					var texto = $('#' + id).siblings('.item-inner').find('.item-title').text();
+					var descricao = $('#' + id).siblings('.item-inner').find('.item-text').text();
+					myApp.alert(descricao, texto, limparCampos);
 				});
 			});
+		}
+		
+		function limparCampos() {
+			$('#new-tarefa').val('').focus();
+			$('#descricao').val('');
 		}
 	</script>
   </body>
