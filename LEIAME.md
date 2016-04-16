@@ -1,1 +1,1 @@
-Projetos de estudo
+Repositório para manter versionado estudos e cursos realizados, relacionados a análise e desenvolmento de software.
