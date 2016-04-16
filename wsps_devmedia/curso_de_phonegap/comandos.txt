@@ -21,3 +21,7 @@ phonegap create alomundo_phonegap br.edu.devmedia.alomundo AloMundoPhoneGap
 phonegap platform add android
 
 ionic start myApp sidemenu
+
+https://github.com/apache/cordova-plugin-dialogs
+cordova plugin add cordova-plugin-dialogs
+cordova plugin ls ['cordova-plugin-vibration']
