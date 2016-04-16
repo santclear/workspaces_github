@@ -16,7 +16,7 @@
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="framework7/css/my-app.css">
   </head>
-  <body>
+  <body class='theme-purple'>
     <!-- Views -->
     <div class="views">
       <!-- Your main view, should have "view-main" class -->
@@ -29,7 +29,7 @@
             <!-- Top Navbar. In Material theme it should be inside of the page-->
             <div class="navbar">
               <div class="navbar-inner">
-                <div class="center">Awesome App</div>
+                <div class="center">DevMedia - Terefas</div>
               </div>
             </div>
  
@@ -44,12 +44,12 @@
  
             <!-- Scrollable page content -->
             <div class="page-content">
-			<div class="content-block-title">Select Message</div>
-				<div class="list-block media-list">
+			<div class="content-block-title">Lista de Terefas</div>
+				<div class="list-block media-list" id="item-tarefa">
 				  <ul>
-					<li style='display: none'>
+					<li style='display: block' id="primeiro">
 					  <label class="label-checkbox item-content">
-						<input type="checkbox" name="my-checkbox">
+						<input type="checkbox" name="my-checkbox" class="check-tarefa" id="tarefa0">
 						<div class="item-media"><i class="icon icon-form-checkbox"></i></div>
 						<div class="item-inner">
 						  <div class="item-title-row">
@@ -68,7 +68,6 @@
 						</div>
 					  </label>
 					</li>
-					...
 				  </ul>
 				</div>
 				<div class="content-block">
@@ -76,7 +75,7 @@
 						<div class="item-content">
 						<div class="item-inner">
 						  <div class="item-input">
-							<input type='text' id='teste' placeholder='Digite um valor...'/>
+							<input type='text' id='new-tarefa' placeholder='Nova terefa...'/>
 						  </div>
 						</div>
 						</div>
@@ -89,9 +88,8 @@
       </div>
     </div>
     <!-- Path to Framework7 Library JS-->
-	<script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-2.2.3.js"></script>
     <script type="text/javascript" src="framework7/js/framework7.min.js"></script>
-	jquery-migrate-1.2.1.min.js
     <!-- Path to your app js-->
     <script type="text/javascript" src="framework7/js/my-app.js"></script>
 	<script type="text/javascript">
@@ -102,17 +100,25 @@
 		function criarNovaTarefa() {
 			var tarefa = {};
 			
-			var descricao = prompt('Digite a tarefa', '');
+			var descricao = $('#new-tarefa').val();
 			if(descricao != null) {
 				if(descricao == '') {
 					alert('A tarefa não pode estar vazia!');
 				} else {
 					tarefa = {check: false, texto: descricao};
+					addItemLista(tarefa);
+					$('#new-tarefa').val('');
 				}
 			}
 		}
 		
-		function addItemLista(tarefa, )
+		var idItem = 0;
+		function addItemLista(tarefa) {
+			idItem += 1;
+			var clone = $('#item-tarefa li#primeiro').clone().removeAttr('id').appendTo('#item-tarefa ul');
+			clone.find('.check-tarefa').attr('id', 'tarefa'+ idItem).prop('checked', tarefa.check);
+			clone.find('.item-title').text(tarefa.texto);
+		}
 	</script>
   </body>
 </html>
