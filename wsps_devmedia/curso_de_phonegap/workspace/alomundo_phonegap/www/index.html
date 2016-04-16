@@ -55,11 +55,11 @@
 						  <div class="item-title-row">
 							<div class="item-title">Facebook</div>
 							<div class="item-after">
-								<a href='#' class="button button-fill button-raised" onclick='ola()' style="padding-top:3px">
+								<a href='#' class="button button-fill button-raised btn-ver" style="padding-top:3px">
 									<img src='img/eye.png' />
 								</a>
 								<div class="item-after">
-									<a href='#' class="button button-fill button-raised" onclick='ola()' style="padding-top:5px">
+									<a href='#' class="button button-fill button-raised btn-remover" style="padding-top:5px">
 										<img src='img/remove.png' />
 									</a>
 								</div>
@@ -80,7 +80,7 @@
 						</div>
 						</div>
 					</div>
-					<a href='#' class="button button-fill button-raised" onclick='showAlert()'>Adicionar Tarefa</a>
+					<a href='#' class="button button-fill button-raised" onclick='criarNovaTarefa()'>Adicionar Tarefa</a>
 				</div>
             </div>
           </div>
@@ -94,6 +94,10 @@
     <!-- Path to your app js-->
     <script type="text/javascript" src="framework7/js/my-app.js"></script>
 	<script type="text/javascript">
+		$(document).ready(function() {
+			
+		});
+	
 		function showAlert() {
 			navigator.notification.confirm(
 				'You are the winner!',  // message
@@ -109,7 +113,7 @@
 			var descricao = $('#new-tarefa').val();
 			if(descricao != null) {
 				if(descricao == '') {
-					myApp.alert('A tarefa não pode estar vazia!');
+					myApp.alert('A tarefa não pode estar vazia!', 'Alerta');
 				} else {
 					tarefa = {check: false, texto: descricao};
 					addItemLista(tarefa);
@@ -124,6 +128,21 @@
 			var clone = $('#item-tarefa li#primeiro').clone().removeAttr('id').appendTo('#item-tarefa ul');
 			clone.find('.check-tarefa').attr('id', 'tarefa'+ idItem).prop('checked', tarefa.check);
 			clone.find('.item-title').text(tarefa.texto);
+			setClickVer();
+		}
+		
+		function setClickVer() {
+			// itera por todos os li a partir do #item-tarefa
+			$('#item-tarefa li').each(function() {
+				// busca o id da tarefa atual
+				var id = $(this).find('.check-tarefa').attr('id');
+				// procura o btn-ver, desfaz o clique, depois clica novamente
+				$(this).find('.btn-ver').unbind('click').click(function(){
+					// a partir do id procurado, busca todo os irmãos para o obter o item-inner, para depois pegar o texto do item
+					var texto = $('#'+ id).siblings('.item-inner').find('.item-title').text();
+					myApp.alert(texto, 'Item da Lista');
+				});
+			});
 		}
 	</script>
   </body>
