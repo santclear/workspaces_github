@@ -1,6 +1,4 @@
-platforms/*
-plugins/*
-<<<<<<< HEAD
-*.zip
-=======
->>>>>>> b2f94b899953a21e26ba4d63710a49ca003ecf17
+/platforms/
+/plugins/
+/**/*.zip
+/**/*.db

@@ -24,4 +24,4 @@ ionic start myApp sidemenu
 
 https://github.com/apache/cordova-plugin-dialogs
 cordova plugin add cordova-plugin-dialogs
-cordova plugin ls ['cordova-plugin-vibration']
+cordova plugin ls ['cordova-plugin-dialogs']

@@ -52,7 +52,7 @@
 				<div class="content-block-title">Lista de Tarefas</div>
 				<div class="list-block media-list" id='item-tarefa'>
 				  <ul>
-					<li style='display:block' id='primeiro'>
+					<li style='display:none' id='primeiro'>
 					  <label class="label-checkbox item-content">
 						<input type="checkbox" name="my-checkbox" class='check-tarefa' id='tarefa0'>
 						<div class="item-media"><i class="icon icon-form-checkbox"></i></div>
@@ -64,7 +64,7 @@
 									<img src='img/eye.png'/>
 								</a>
 								<div class="item-after">
-									<a href='#' class="button button-fill button-raised btn-remover" style='padding-top:5px'>
+									<a href='#' class="button color-red button-fill button-raised btn-remover" style='padding-top:5px'>
 										<img src='img/remove.png'/>
 									</a>
 								</div>
@@ -112,6 +112,11 @@
     <script type="text/javascript" src="framework7/js/my-app.js"></script>
     <script type="text/javascript" src="js/jquery.simplyCountable.js"></script>
 	<script type="text/javascript">
+		var myApp = new Framework7({
+		  material: true
+		}); 
+		var mainView = myApp.addView('.view-main');
+	
 		$(document).ready(function () {
 			configBotoesAcao();
 			
@@ -143,11 +148,21 @@
 		var idItem = 0;
 		function addItemLista(tarefa) {
 			idItem += 1;
-			var clone = $('#item-tarefa li#primeiro').clone().removeAttr('id').appendTo('#item-tarefa ul');
+			var clone = $('#item-tarefa li#primeiro').clone().removeAttr('id').appendTo('#item-tarefa ul').show();
 			clone.find('.check-tarefa').attr('id', 'tarefa' + idItem).prop('checked', tarefa.check);
 			clone.find('.item-title').text(tarefa.texto);
 			clone.find('.item-text').text(tarefa.descricao);
 			configBotoesAcao();
+			// caixa de notificacao exibida no rodape após adicionar um item com sucesso
+			// a notificacao eh exibida por 6s (6000ms)
+			myApp.addNotification({
+				title: 'Tarefa adicionada com sucesso!',
+				hold: 6000,
+				button: {
+					text: 'Fechar',
+					color: 'red'
+				}
+			});
 		}
 		
 		function configBotoesAcao() {
