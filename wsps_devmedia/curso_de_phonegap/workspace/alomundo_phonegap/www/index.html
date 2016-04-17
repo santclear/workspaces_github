@@ -95,6 +95,8 @@
 						</div>
 					</div>
 					
+					Restam <span id='cont'></span> chars.
+					
 					<a href='#' class="button button-fill button-raised" onclick='criarNovaTarefa()'>Add Tarefa</a>
 				</div>
             </div>
@@ -108,9 +110,18 @@
     <script type="text/javascript" src="framework7/js/framework7.min.js"></script>
     <!-- Path to your app js-->
     <script type="text/javascript" src="framework7/js/my-app.js"></script>
+    <script type="text/javascript" src="js/jquery.simplyCountable.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function () {
-			setClickVer();
+			configBotoesAcao();
+			
+			$('#descricao').simplyCountable({
+				counter:            '#cont',
+				countType:          'characters',
+				maxCount:           60,
+				strictMax:          true,
+				countDirection:     'down'
+			});
 		});
 	
 		function criarNovaTarefa() {
@@ -136,10 +147,10 @@
 			clone.find('.check-tarefa').attr('id', 'tarefa' + idItem).prop('checked', tarefa.check);
 			clone.find('.item-title').text(tarefa.texto);
 			clone.find('.item-text').text(tarefa.descricao);
-			setClickVer();
+			configBotoesAcao();
 		}
 		
-		function setClickVer() {
+		function configBotoesAcao() {
 			// itera por todos os li a partir do #item-tarefa
 			$('#item-tarefa li').each(function () {
 				var id = $(this).find('.check-tarefa').attr('id');
@@ -150,6 +161,15 @@
 					var descricao = $('#' + id).siblings('.item-inner').find('.item-text').text();
 					myApp.alert(descricao, texto, limparCampos);
 				});
+				$(this).find('.btn-remover').unbind('click').click(function () {
+					removerItem(id);
+				});
+			});
+		}
+		
+		function removerItem(idItem) {
+			myApp.confirm('Tem certeza que deseja remover essa tarefa?', 'Remover Tarefa', function() {
+				$('#' + idItem).parents('li').remove();
 			});
 		}
 		
