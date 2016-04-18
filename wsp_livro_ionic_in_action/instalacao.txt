@@ -1,0 +1,21 @@
+?Instalar
+NodeJs
+GenyMotion (Emulador Celular) com VirtualBox
+Android SDK sem o Studio(Se quiser pode ser com studio)
+
+Python python-2.7.11 (Adicionar ao Path do Windows)
+
+https://cordova.apache.org/docs/en/2.9.0/guide/cli/
+sudo npm install -g cordova
+
+Configurar rede para o VBox
+http://stackoverflow.com/questions/33725779/failed-to-open-create-the-internal-network-vagrant-on-windows10
+
+configurar variável de ambiente do sdk android
+[USER_HOME]\AppData\Local\Android\sdk
+
+Baixar APIs do Android
+[USER_HOME]\AppData\Local\Android\sdk\tools>android.bat
+
+Instalar Ionic
+npm install -g cordova ionic

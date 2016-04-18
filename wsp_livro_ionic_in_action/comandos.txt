@@ -1,0 +1,8 @@
+criar novo projeto
+ionic start chapter2
+
+iniciar o ionic serve
+ionic serve
+
+configurar máquina virtual
+android avd

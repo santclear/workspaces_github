@@ -1,0 +1,5 @@
+cliente ionic
+https://github.com/driftyco/ionic-cli
+
+config.xml do cordova
+https://cordova.apache.org/docs/en/dev/config_ref/index.html
