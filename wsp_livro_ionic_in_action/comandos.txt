@@ -6,3 +6,11 @@ ionic serve
 
 configurar máquina virtual
 android avd
+
+adicionar plataforma
+ionic platform add android
+
+rodar no genymotion
+1. abrir vbox
+2. executar emulador do genymotion
+3. ionic run android
