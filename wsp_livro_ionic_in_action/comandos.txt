@@ -14,3 +14,8 @@ rodar no genymotion
 1. abrir vbox
 2. executar emulador do genymotion
 3. ionic run android
+
+para rodar uma aplicação angular qualquer (sem ser mobile)
+1. dentro do projeto
+2. npm install
+3. node server
