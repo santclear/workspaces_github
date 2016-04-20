@@ -5,3 +5,5 @@ config.xml do cordova
 https://cordova.apache.org/docs/en/dev/config_ref/index.html
 
 https://github.com/ionic-in-action/chapter3
+
+http://ionicons.com/
