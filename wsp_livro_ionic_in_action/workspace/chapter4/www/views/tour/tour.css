@@ -1,0 +1,16 @@
+/* faz com que o slider ocupe a altura total */
+#tour-view .slider {
+    height: 100%;
+}
+
+/* provê distanciamento do topo para o slider e posiciona o conteúdo no centro */
+#tour-view .slider-slide {
+    padding-top: 100px;
+    text-align: center;
+}
+
+/* torna o ícone maior e o exibe em bloco de linha */
+#tour-view .icon-slide {
+    font-size: 20em;
+    display: inline-block;
+}
