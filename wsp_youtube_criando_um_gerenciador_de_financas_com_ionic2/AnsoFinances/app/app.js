@@ -1,11 +1,12 @@
 import {App, Platform} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {HomePage} from './pages/home/home';
+import {ContasPage} from './pages/contas/contas';
 
 // @App indica o que a classe é ou o que a classe faz
 @App({
   // 1. adiciona variável index a raiz
-  template: '<ion-nav [root]="index"></ion-nav>',
+  templateUrl: 'build/app.html',
   config: {} // http://ionicframework.com/docs/v2/api/config/Config/
 })
 
@@ -18,8 +19,11 @@ export class MyApp {
 
   // construtor de classe
   constructor(platform) {
+    this.home = HomePage;
+    this.contas = ContasPage;
+    
     // 2. variável index recebe a página definida no "import {HomePage}"
-    this.index = HomePage;
+    this.index = this.home;
 
     // método
     platform.ready().then(() => {
@@ -28,4 +32,8 @@ export class MyApp {
       StatusBar.styleDefault(); // aplica o estilo default ao statu bar
     });
   }
+  
+  openPage(opcao) {
+    this.index = opcao;
+  };
 }

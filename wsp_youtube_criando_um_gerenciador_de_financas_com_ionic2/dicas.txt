@@ -1,0 +1,5 @@
+Aula 2 
+sugerido o uso do IDE Atom
+instalar pacotes adicionais:
+	autocomplete-ionic2-framework
+	ionic-preview (para usar, na ide clicar ctrl+ship+p, inserir ionic-preview)
