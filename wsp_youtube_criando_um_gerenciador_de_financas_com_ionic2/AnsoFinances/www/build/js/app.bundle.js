@@ -150,7 +150,8 @@ var ContasPage = exports.ContasPage = (_dec = (0, _ionicAngular.Page)({
 
         this.dao = new _daoContas.DAOContas();
         this.listContas = this.dao.getList();
-
+        // 1. cria uma propriedade chamada nav, a qual recebe o nav por parâmetro,
+        // obs.: quem setou o nav do parâmetro foi o "return [[NavController]]"
         this.nav = nav;
     }
 
@@ -166,6 +167,7 @@ var ContasPage = exports.ContasPage = (_dec = (0, _ionicAngular.Page)({
                 _this.dao.insert(data);
             });
 
+            // abre o modal
             this.nav.present(modal);
         }
     }, {
@@ -276,6 +278,11 @@ var ModalContasPage = exports.ModalContasPage = (_dec = (0, _ionicAngular.Page)(
     }, {
         key: 'salvar',
         value: function salvar() {
+            // quando for feito o fechamento (onDismiss) do modal será chamado o método
+            // onDismiss do método insert() da classe ContasPage, vide contas.js, lá
+            // o método insere o objeto "data" (no caso contas.js) no Dao
+            // possibilitando que a view contas, antes do seu fechamento (dismiss),
+            // atualize a lista
             this.view.dismiss(this.conta);
         }
     }]);

@@ -15,7 +15,8 @@ export class ContasPage {
     constructor(nav) {
         this.dao = new DAOContas();
         this.listContas = this.dao.getList();
-
+        // 1. cria uma propriedade chamada nav, a qual recebe o nav por parâmetro,
+        // obs.: quem setou o nav do parâmetro foi o "return [[NavController]]"
         this.nav = nav;
     }
 
@@ -27,6 +28,7 @@ export class ContasPage {
             this.dao.insert(data);
         });
 
+        // abre o modal
         this.nav.present(modal);
     }
 

@@ -21,6 +21,11 @@ export class ModalContasPage {
     }
 
     salvar() {
+        // quando for feito o fechamento (onDismiss) do modal será chamado o método
+        // onDismiss do método insert() da classe ContasPage, vide contas.js, lá
+        // o método insere o objeto "data" (no caso contas.js) no Dao
+        // possibilitando que a view contas, antes do seu fechamento (dismiss),
+        // atualize a lista
         this.view.dismiss(this.conta);
     }
 }
