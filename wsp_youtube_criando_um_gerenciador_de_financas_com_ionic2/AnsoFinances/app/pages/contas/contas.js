@@ -14,7 +14,9 @@ export class ContasPage {
 
     constructor(nav) {
         this.dao = new DAOContas();
-        this.listContas = this.dao.getList();
+        this.dao.getList((lista) => {
+            this.listContas = lista;
+        });
         // 1. cria uma propriedade chamada nav, a qual recebe o nav por parâmetro,
         // obs.: quem setou o nav do parâmetro foi o "return [[NavController]]"
         this.nav = nav;
@@ -25,7 +27,9 @@ export class ContasPage {
 
         // (data) => {} equivale a function(data) {}
         modal.onDismiss((data) => {
-            this.dao.insert(data);
+            this.dao.insert(data, (conta) => {
+                this.listContas.push(conta);
+            });
         });
 
         // abre o modal
@@ -38,13 +42,19 @@ export class ContasPage {
 
         // (data) => {} equivale a function(data) {}
         modal.onDismiss((data) => {
-            this.dao.edit(data);
+            this.dao.edit(data, (conta) => {
+
+            });
         });
 
         this.nav.present(modal);
     }
 
     delete(conta) {
-        this.dao.delete(conta);
+        this.dao.delete(conta, (conta) => {
+            // obtém a posição da conta
+            let pos = this.listContas.indexOf(conta);
+            this.listContas.splice(pos, 1);
+        });
     }
 }

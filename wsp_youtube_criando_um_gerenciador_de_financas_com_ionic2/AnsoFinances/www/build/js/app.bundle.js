@@ -76,16 +76,28 @@ var MyApp = exports.MyApp = (_dec = (0, _ionicAngular.App)({
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.DAOContas = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _ionicAngular = require("ionic-angular");
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+// importa plugin de banco de dados sqlite
 
 var DAOContas = exports.DAOContas = function () {
     function DAOContas() {
         _classCallCheck(this, DAOContas);
 
-        this.list = [];
+        var storage = new _ionicAngular.Storage(_ionicAngular.SqlStorage);
+
+        // query(): método usado para fazer CRUD
+        storage.query("CREATE TABLE IF NOT EXISTS contas(id INTEGER PRIMARY KEY AUTOINCREMENT, descricao TEXT)").then(function (data) {
+            console.log("Tabela criada");
+        }, function (error) {
+            console.log("Erro na criação da tabela " + JSON.stringfy(error.err));
+        });
     }
 
     _createClass(DAOContas, [{
@@ -114,7 +126,7 @@ var DAOContas = exports.DAOContas = function () {
     return DAOContas;
 }();
 
-},{}],3:[function(require,module,exports){
+},{"ionic-angular":339}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

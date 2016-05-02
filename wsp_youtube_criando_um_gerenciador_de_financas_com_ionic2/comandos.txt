@@ -1,3 +1,13 @@
 auto gerar páginas
 ionic g page modalContas
 
+para rodar o aplicativo no smartphone
+	1. instalar cordova: npm install -g cordova
+	2. adicionar a plataforma ao projeto: ionic platform add android
+	3. fazer build do apk: ionic build android
+	4. cordova prepare
+	5. ionic run android
+
+plugin de banco de dados	
+cordova plugin add cordova-sqlite-storage
+	

@@ -3,3 +3,15 @@ sugerido o uso do IDE Atom
 instalar pacotes adicionais:
 	autocomplete-ionic2-framework
 	ionic-preview (para usar, na ide clicar ctrl+ship+p, inserir ionic-preview)
+	
+sempre que for subir o servidor ou fazer build do apk deve-se parar o atom
+
+antes de executar os comandos para rodar no smartphone, deve-se:
+	1. habilitar o modo de depuração no android do dispositivo
+	2. entrar no modal "Programador" no Android do dispositivo
+	3. habilitar Depuração USB
+	4. habilitar o USB para transferência de arquivos no Android do dispositivo
+	
+quando quiser testar banco de dados no smartphone, usuar feature do chrome de teste remoto
+chrome://inspect
+
