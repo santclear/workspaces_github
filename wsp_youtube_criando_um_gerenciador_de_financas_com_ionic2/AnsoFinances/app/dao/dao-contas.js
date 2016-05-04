@@ -12,7 +12,7 @@ export class DAOContas {
         });
     }
 
-    getList(sucessCallBack) {
+    getList(successCallBack) {
         let storage = new Storage(SqlStorage);
 
         storage.query("SELECT * FROM contas").then((data) => {
@@ -25,41 +25,41 @@ export class DAOContas {
                 item.descricao = data.res.rows.item(i).descricao;
 
                 lista.push(item);
-
-                sucessCallBack(lista);
             }
+
+            successCallBack(lista);
         }, (error) => {
             console.log("Erro na criação da tabela "+ JSON.stringfy(error.err));
         })
     }
 
-    insert(conta, sucessCallBack) {
+    insert(conta, successCallBack) {
         let storage = new Storage(SqlStorage);
 
         storage.query("INSERT INTO contas(descricao) VALUES(?)", [conta.descricao]).then((data) => {
             conta.id = data.res.insertId;
-            sucessCallBack(conta);
+            successCallBack(conta);
             console.log("Gravou");
         }, (error) => {
             console.log("Erro na criação da tabela "+ JSON.stringfy(error.err));
         });
     }
 
-    edit(conta) {
+    edit(conta, successCallBack) {
         let storage = new Storage(SqlStorage);
 
         storage.query("UPDATE contas SET descricao = ? WHERE id = ?", [conta.descricao, conta.id]).then((data) => {
-        sucessCallBack(conta);
+        successCallBack(conta);
         }, (error) => {
             console.log("Erro na criação da tabela "+ JSON.stringfy(error.err));
         });
     }
 
-    delete(conta, sucessCallBack) {
+    delete(conta, successCallBack) {
         let storage = new Storage(SqlStorage);
 
         storage.query("DELETE FROM contas WHERE id = ?", [conta.id]).then((data) => {
-            sucessCallBack(conta);
+            successCallBack(conta);
             console.log("Deletou");
         }, (error) => {
             console.log("Erro na criação da tabela "+ JSON.stringfy(error.err));

@@ -1,6 +1,7 @@
-import {Page, Modal, NavController} from 'ionic-angular';
+import {Page, Modal, NavController, Alert} from 'ionic-angular';
 import {DAOContas} from '../../dao/dao-contas';
 import {ModalContasPage} from "../modal-contas/modal-contas"
+import {Toast} from "ionic-native";
 
 // Tem que ser assim @Page({}), não assim @Page ({}) (não pode haver espaço)
 @Page({
@@ -27,9 +28,15 @@ export class ContasPage {
 
         // (data) => {} equivale a function(data) {}
         modal.onDismiss((data) => {
-            this.dao.insert(data, (conta) => {
-                this.listContas.push(conta);
-            });
+            if(data) {
+                this.dao.insert(data, (conta) => {
+                    this.listContas.push(conta);
+
+                    Toast.showShortBottom("Conta inserida com sucesso.").subscribe((toast) => {
+                        console.log(toast);
+                    });
+                });
+            }
         });
 
         // abre o modal
@@ -42,19 +49,40 @@ export class ContasPage {
 
         // (data) => {} equivale a function(data) {}
         modal.onDismiss((data) => {
-            this.dao.edit(data, (conta) => {
-
-            });
+            if(data) {
+                this.dao.edit(data, (conta) => {
+                    Toast.showShortBottom("Conta alterada com sucesso.").subscribe((toast) => {
+                        console.log(toast);
+                    });
+                });
+            }
         });
 
         this.nav.present(modal);
     }
 
     delete(conta) {
-        this.dao.delete(conta, (conta) => {
-            // obtém a posição da conta
-            let pos = this.listContas.indexOf(conta);
-            this.listContas.splice(pos, 1);
+        let confirm = Alert.create({
+            title: "Excluir",
+            body: "Gostaria de realmente excluir a conta "+ conta.descricao +"?",
+            buttons: [
+                {
+                    text: "Sim",
+                    handler: () => {
+                        this.dao.delete(conta, (conta) => {
+                            // obtém a posição da conta
+                            let pos = this.listContas.indexOf(conta);
+                            this.listContas.splice(pos, 1);
+                            Toast.showShortBottom("Conta excluida com sucesso.").subscribe((toast) => {
+                                console.log(toast);
+                            });
+                        });
+                    }
+                },
+                {text: "Não"}
+            ]
         });
+
+        this.nav.present(confirm);
     }
 }

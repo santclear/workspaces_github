@@ -10,4 +10,6 @@ para rodar o aplicativo no smartphone
 
 plugin de banco de dados	
 cordova plugin add cordova-sqlite-storage
-	
+
+Aula 5
+ionic plugin add cordova-plugin-x-toast
