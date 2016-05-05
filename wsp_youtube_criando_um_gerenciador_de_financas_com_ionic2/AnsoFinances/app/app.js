@@ -7,7 +7,8 @@ import {ContasPage} from './pages/contas/contas';
 @App({
   // 1. adiciona variável index a raiz
   templateUrl: 'build/app.html',
-  config: {} // http://ionicframework.com/docs/v2/api/config/Config/
+  // md layout material design (Android). Outros: ios e wp (Windows Phone)
+  config: {mode: "md"} // http://ionicframework.com/docs/v2/api/config/Config/
 })
 
 // definição de classe
@@ -21,7 +22,7 @@ export class MyApp {
   constructor(platform) {
     this.home = HomePage;
     this.contas = ContasPage;
-    
+
     // 2. variável index recebe a página definida no "import {HomePage}"
     this.index = this.home;
 
@@ -32,7 +33,7 @@ export class MyApp {
       StatusBar.styleDefault(); // aplica o estilo default ao statu bar
     });
   }
-  
+
   openPage(opcao) {
     this.index = opcao;
   };

@@ -13,3 +13,7 @@ cordova plugin add cordova-sqlite-storage
 
 Aula 5
 ionic plugin add cordova-plugin-x-toast
+
+Aula 6
+ionic g page lancamentos
+ionic g page modal-lancamento
