@@ -5,13 +5,13 @@ export class DAOLancamentos {
         let storage = new Storage(SqlStorage);
 
         storage.query(
-            "CREATE TABLE IF NOT EXISTS lancamentos (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "descricao TEXT, " +
-                "valor REAL, " +
-                "data INTEGER, " +
-                "conta TEXT, " +
-                "entradaSaida TEXT, " +
+            "CREATE TABLE IF NOT EXISTS lancamentos ("+
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                "descricao TEXT, "+
+                "valor REAL, "+
+                "data INTEGER, "+
+                "conta TEXT, "+
+                "entradaSaida TEXT, "+
                 "pago INTEGER)"
         ).then((data) => {
             console.log("Tabela criada");
@@ -64,6 +64,39 @@ export class DAOLancamentos {
             }
 
             successCallBack(lista)
+        });
+    }
+
+    delete(lancamento, successCallBack) {
+        let storage = new Storage(SqlStorage);
+
+        storage.query("DELETE FROM lancamentos WHERE id = ?", [lancamento.id]).then((data) => {
+            successCallBack(lancamento);
+        });
+    }
+
+    edit(lancamento, successCallBack) {
+        let storage = new Storage(SqlStorage);
+
+        storage.query(
+            "UPDATE lancamentos "+
+            "SET "+
+                "descricao = ?,"+
+                "valor = ?,"+
+                "conta = ?,"+
+                "entradaSaida = ?,"+
+                "pago = ? "+
+                "WHERE id = ?", [
+                    lancamento.descricao,
+                    lancamento.valor,
+                    lancamento.data,
+                    lancamento.conta,
+                    lancamento.entradaSaida,
+                    lancamento.pago,
+                    lancamento.id
+                ]
+        ).then((data) => {
+            successCallBack(lancamento);
         });
     }
 }
