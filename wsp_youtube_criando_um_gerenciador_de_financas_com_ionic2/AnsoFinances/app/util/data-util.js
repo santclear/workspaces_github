@@ -18,4 +18,39 @@ export class DataUtil {
 
         return ano +"-"+ mes +"-"+ dia;
     }
+
+    getMonthName(data) {
+        let meses = [
+            "Janeiro",
+            "Fevereiro",
+            "Março",
+            "Abril",
+            "Maio",
+            "Junho",
+            "Julho",
+            "Agosta",
+            "Setembro",
+            "Outubro",
+            "Novembro",
+            "Dezembro"
+        ];
+
+        return meses[data.getMonth()];
+    }
+
+    getFirstDay(data) {
+        let ano = data.getFullYear();
+        let mes = data.getMonth();
+
+        return new Date(ano, mes, 1);
+    }
+
+    getLastDay(data) {
+        let newDate = new Date(data);
+
+        let ano = data.getFullYear();
+        let mes = data.getMonth() + 1;
+
+        return new Date(ano, mes, 0);
+    }
 }

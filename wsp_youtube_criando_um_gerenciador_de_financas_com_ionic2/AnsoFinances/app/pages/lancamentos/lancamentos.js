@@ -2,10 +2,13 @@ import {Page, Modal, NavController, Alert} from 'ionic-angular';
 import {DAOLancamentos} from '../../dao/dao-lancamentos';
 import {ModalLancamentosPage} from '../modal-lancamentos/modal-lancamentos';
 import {DataUtil} from '../../util/data-util';
+import {DataFilter} from '../../components/data-filter';
 
 @Page({
     templateUrl: 'build/pages/lancamentos/lancamentos.html',
+    directives: [DataFilter]
 })
+
 export class LancamentosPage {
     static get parameters() {
         return [[NavController]];
@@ -16,9 +19,25 @@ export class LancamentosPage {
         this.dao = new DAOLancamentos();
         this.listLancamentos = [];
 
-        this.dao.getList((lista) => {
+        this.dataFiltro = new Date();
+
+        this.getListaLancamentos();
+    }
+
+    getListaLancamentos() {
+        let dataUtil = new DataUtil();
+        let dataInicio = dataUtil.getFirstDay(this.dataFiltro);
+        let dataFim = dataUtil.getLastDay(this.dataFiltro);
+
+        this.dao.getList(dataInicio, dataFim, (lista) => {
             this.listLancamentos = lista;
         });
+    }
+
+    updateMonth(data) {
+        console.log("Alterado: "+ data);
+        this.dataFiltro = data;
+        this.getListaLancamentos();
     }
 
     insert() {
@@ -27,7 +46,7 @@ export class LancamentosPage {
         modal.onDismiss((data) => {
             if(data) {
                 this.dao.insert(data, (lancamento) => {
-                    this.listLancamentos.push(lancamento);
+                    this.updateMonth(new Date(lancamento.data));
                 })
             }
         });

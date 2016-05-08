@@ -41,10 +41,14 @@ export class DAOLancamentos {
         });
     }
 
-    getList(successCallBack) {
+    getList(dataInicio, dataFim, successCallBack) {
         let storage = new Storage(SqlStorage);
 
-        storage.query("SELECT * FROM lancamentos", []).then((data) => {
+        storage.query(
+            "SELECT * FROM lancamentos "+
+            "WHERE data >= ? and data <= ?",
+            [dataInicio.getTime(), dataFim.getTime()]
+        ).then((data) => {
             let lista = [];
 
             for (var i = 0; i < data.res.rows.length; i++) {
