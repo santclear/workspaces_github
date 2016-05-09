@@ -33,6 +33,7 @@
                 </ion-row>
             </ion-item>
             <ion-item-options>
+                <button (click)="changePaymentStatus(item)"><ion-icon name="cash"></ion-icon>{{paymentButtonText(item)}}</button>
                 <button danger (click)="delete(item)"><ion-icon name="trash"></ion-icon></button>
             </ion-item-options>
         </ion-item-sliding>

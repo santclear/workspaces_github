@@ -82,15 +82,15 @@ export class DAOLancamentos {
     edit(lancamento, successCallBack) {
         let storage = new Storage(SqlStorage);
 
-        storage.query(
-            "UPDATE lancamentos "+
-            "SET "+
-                "descricao = ?,"+
-                "valor = ?,"+
-                "conta = ?,"+
-                "entradaSaida = ?,"+
-                "pago = ? "+
-                "WHERE id = ?", [
+        storage.query(`
+            UPDATE lancamentos
+            SET descricao = ?,
+                valor = ?,
+                data = ?,
+                conta = ?,
+                entradaSaida = ?,
+                pago = ?
+            WHERE id = ?`, [
                     lancamento.descricao,
                     lancamento.valor,
                     lancamento.data,
@@ -101,6 +101,33 @@ export class DAOLancamentos {
                 ]
         ).then((data) => {
             successCallBack(lancamento);
+        });
+    }
+
+    getSaldo(successCallBack) {
+        let storage = new Storage(SqlStorage);
+
+        storage.query(`
+            SELECT TOTAL(valor) AS saldo, entradaSaida FROM lancamentos
+            WHERE pago = 1
+            AND entradaSaida = 'entrada'
+            UNION
+            SELECT TOTAL(valor) AS saldo, entradaSaida FROM lancamentos
+            WHERE pago = 1
+            AND entradaSaida = 'saida'
+        `, []).then((data) => {
+            let saldo = 0;
+
+            for(var i = 0; i < data.res.rows.length; i++) {
+                let item = data.res.rows.item(i);
+
+                if(item.entradaSaida == "entrada")
+                    saldo += item.saldo;
+                else
+                    saldo -= item.saldo;
+            }
+
+            successCallBack(saldo);
         });
     }
 }
