@@ -6,13 +6,13 @@ import {DataUtil} from '../util/data-util';
     selector: "data-filter",
     directives: [IONIC_DIRECTIVES],
     inputs: ['startDate'],
-    outputs: ['changeMonth'],
+    outputs: ['changeMonth', 'clickMonth'],
     template:  `<ion-row>
                     <ion-col width-10>
                         <button favorite clear round (click)="previousMonth()"><ion-icon name="arrow-dropleft-circle"></ion-icon></button>
                     </ion-col>
                     <ion-col width-75>
-                        <h4 class="texto-destaque" favorite>{{mesSelecionado}}</h4>
+                        <h4 class="texto-destaque" favorite (click)="_executeClickMonth()">{{mesSelecionado}}</h4>
                     </ion-col>
                     <ion-col width-10>
                         <button favorite clear round (click)="nextMonth()"><ion-icon name="arrow-dropright-circle"></ion-icon></button>
@@ -23,10 +23,15 @@ import {DataUtil} from '../util/data-util';
 export class DataFilter {
     constructor() {
         this.changeMonth = new EventEmitter();
+        this.clickMonth = new EventEmitter();
     }
 
     _executeChangeMonth() {
         this.changeMonth.next(this.startDate);
+    }
+
+    _executeClickMonth() {
+        this.clickMonth.next();
     }
 
     //_ indica que o método é privado

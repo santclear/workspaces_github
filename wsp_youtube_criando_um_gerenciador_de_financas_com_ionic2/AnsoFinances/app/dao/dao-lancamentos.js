@@ -130,4 +130,31 @@ export class DAOLancamentos {
             successCallBack(saldo);
         });
     }
+
+    getListGroupByConta(dataInicio, dataFim, entradaSaida, successCallBack) {
+        let storage = new Storage(SqlStorage);
+
+        storage.query(`
+            SELECT conta, TOTAL(valor) AS saldoConta FROM lancamentos
+            WHERE data >= ?
+            AND data <= ?
+            AND entradaSaida = ?
+            AND pago = 1
+            GROUP BY conta
+        `, [dataInicio.getTime(), dataFim.getTime(), entradaSaida]).then((data) => {
+            let lista = [];
+
+            for(var i = 0; i < data.res.rows.length; i++) {
+                let item = data.res.rows.item(i);
+                let conta = {
+                    conta: item.conta,
+                    saldo: item.saldoConta,
+                    percentual: 0
+                };
+                lista.push(conta);
+            }
+
+            successCallBack(lista);
+        });
+    }
 }

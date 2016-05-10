@@ -4,4 +4,5 @@ platforms
 plugins
 .DS_Store
 *.zip
+*.log
 .idea/

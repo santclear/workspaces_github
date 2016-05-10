@@ -3,6 +3,7 @@ import {ModalLancamentosPage} from '../modal-lancamentos/modal-lancamentos';
 import {DAOLancamentos} from '../../dao/dao-lancamentos';
 import {DataUtil} from '../../util/data-util';
 import {DataFilter} from '../../components/data-filter';
+import {RelatorioPage} from '../relatorio/relatorio';
 
 @Page({
     templateUrl: 'build/pages/lancamentos/lancamentos.html',
@@ -82,9 +83,9 @@ export class LancamentosPage {
             if(data) {
                 this.dao.edit(lancamento, (lancamento) => {
                     this.updateMonth(new Date(lancamento.data));
-                    Toast.showShortBottom("Conta alterada com sucesso.").subscribe((toast) => {
-                        console.log(toast);
-                    });
+                    // Toast.showShortBottom("Conta alterada com sucesso.").subscribe((toast) => {
+                    //     console.log(toast);
+                    // });
                 });
             }
         });
@@ -121,5 +122,10 @@ export class LancamentosPage {
         this.dao.edit(lancamento, (lancamento) => {
             this.updateMonth(new Date(lancamento.data));
         });
+    }
+
+    onClickMonth() {
+        // push adiciona view na pilha de views
+        this.nav.push(RelatorioPage, {parametro: this.dataFiltro});
     }
 }

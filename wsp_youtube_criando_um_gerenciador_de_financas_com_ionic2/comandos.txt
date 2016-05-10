@@ -24,3 +24,6 @@ ionic g page modal-lancamentos
 
 Aula 9
 ionic g page saldo
+
+Aula 10
+ionic g page relatorio
